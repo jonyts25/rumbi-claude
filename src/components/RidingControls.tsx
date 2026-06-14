@@ -42,6 +42,14 @@ export function RidingControls({
           No hay GPS oficial: tu aviso es lo que le ahorra a alguien esperar a
           ciegas en la parada.
         </p>
+        {channel.presence.waiting > 0 && (
+          <p className="mt-3 inline-flex items-center gap-2 rounded-lg bg-brand/10 px-3 py-1.5 text-sm font-medium text-brand">
+            👀 {channel.presence.waiting}{" "}
+            {channel.presence.waiting === 1
+              ? "persona te está viendo ahora"
+              : "personas te están viendo ahora"}
+          </p>
+        )}
       </div>
 
       {/* Selector de fuente de ubicación */}

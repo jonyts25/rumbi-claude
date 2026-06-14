@@ -18,6 +18,7 @@ export function MapView({ center, color, path, bus, fresh = true }: MapViewProps
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const markerRef = useRef<L.Marker | null>(null);
+  const centeredRef = useRef(false);
 
   // Inicializa el mapa una sola vez.
   useEffect(() => {
@@ -41,10 +42,12 @@ export function MapView({ center, color, path, bus, fresh = true }: MapViewProps
     ).addTo(map);
 
     if (path.length > 1) {
+      // Trazo de referencia, discreto: con GPS real lo que importa es el punto.
       const line = L.polyline(path, {
         color,
-        weight: 5,
-        opacity: 0.7,
+        weight: 4,
+        opacity: 0.3,
+        dashArray: "2 8",
       }).addTo(map);
       map.fitBounds(line.getBounds().pad(0.25));
     }
@@ -68,6 +71,7 @@ export function MapView({ center, color, path, bus, fresh = true }: MapViewProps
         markerRef.current.remove();
         markerRef.current = null;
       }
+      centeredRef.current = false;
       return;
     }
 
@@ -82,10 +86,16 @@ export function MapView({ center, color, path, bus, fresh = true }: MapViewProps
 
     if (!markerRef.current) {
       markerRef.current = L.marker(bus, { icon }).addTo(map);
-      map.panTo(bus, { animate: true });
     } else {
       markerRef.current.setLatLng(bus);
       markerRef.current.setIcon(icon);
+    }
+
+    // Primera vez que aparece el camión: centramos de cerca. Luego solo seguimos.
+    if (!centeredRef.current) {
+      map.setView(bus, Math.max(map.getZoom(), 15), { animate: true });
+      centeredRef.current = true;
+    } else {
       map.panTo(bus, { animate: true });
     }
   }, [bus, color, fresh]);

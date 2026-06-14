@@ -8,10 +8,29 @@ const inter = Inter({
   display: "swap",
 });
 
+const SITE_URL = "https://rumbi-claude-production.up.railway.app";
+const TITLE = "Rumbi · Tu camión no trae GPS, te tiene a ti";
+const DESCRIPTION =
+  "Rumbi convierte a la gente que va en el camión en la información que nunca tuvimos: dónde viene y qué tan lleno va, en vivo y hecho por la comunidad.";
+
 export const metadata: Metadata = {
-  title: "Rumbi · Tu camión no trae GPS, te tiene a ti",
-  description:
-    "Rumbi convierte a la gente que va en el camión en la información que nunca tuvimos: dónde viene y qué tan lleno va, en vivo y comunitario.",
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  applicationName: "Rumbi",
+  openGraph: {
+    type: "website",
+    locale: "es_MX",
+    url: SITE_URL,
+    siteName: "Rumbi",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export const viewport: Viewport = {
