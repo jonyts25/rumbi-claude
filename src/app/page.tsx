@@ -101,11 +101,14 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer className="border-t border-ink-line py-6 text-sm text-gray-500">
-        <p>
+      <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-ink-line py-6 text-sm text-gray-500">
+        <p className="max-w-lg">
           Hecho para quien depende del camión todos los días. Rumbi es una demo
           comunitaria: ningún dato es oficial, todo lo pone la gente.
         </p>
+        <Link href="/monitor" className="shrink-0 text-gray-500 transition hover:text-brand">
+          Monitor →
+        </Link>
       </footer>
     </main>
   );
