@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  background-color: #0d1117;
+  color: #e6edf3;
+}
+
+/* Mapa Leaflet: fondo oscuro mientras cargan los tiles */
+.leaflet-container {
+  background: #0b0f14;
+  font-family: inherit;
+}
+
+.leaflet-control-attribution {
+  background: rgba(13, 17, 23, 0.7) !important;
+  color: #8b949e !important;
+}
+
+.leaflet-control-attribution a {
+  color: #8b949e !important;
+}
+
+/* Marcador del camión */
+.rumbi-bus {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.45);
+  font-size: 18px;
+}
+
+.rumbi-bus::after {
+  content: "";
+  position: absolute;
+  inset: -8px;
+  border-radius: 9999px;
+  border: 2px solid currentColor;
+  animation: pulseRing 1.8s ease-out infinite;
+}
+
+@keyframes pulseRing {
+  0% {
+    transform: scale(0.7);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+::selection {
+  background: #00d8a0;
+  color: #07140f;
+}
