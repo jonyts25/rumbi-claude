@@ -25,7 +25,14 @@ const MapView = dynamic(() => import("@/components/MapView"), {
 
 const STEP = 0.0009; // ~100 m por toque
 
-export function RouteClient({ route }: { route: DemoRoute }) {
+export function RouteClient({
+  route,
+  embedded = false,
+}: {
+  route: DemoRoute;
+  /** Cuando se usa dentro de la pantalla principal (con selector arriba). */
+  embedded?: boolean;
+}) {
   const channel = useRouteChannel(route.id);
   const [mode, setMode] = useState<RideMode>("waiting");
 
@@ -89,35 +96,12 @@ export function RouteClient({ route }: { route: DemoRoute }) {
 
   const fresh = mode === "riding";
 
-  return (
-    <main className="mx-auto flex min-h-dvh max-w-6xl flex-col px-4 sm:px-5">
-      <header className="flex items-center justify-between gap-3 py-5">
-        <Logo />
-        <div className="flex items-center gap-2">
-          <ShareButton
-            message={`Mira el camión de "${route.name}" en vivo con Rumbi 🚌 La comunidad te avisa dónde viene y qué tan lleno va:`}
-          />
-          <Link
-            href="/rutas"
-            className="text-sm text-gray-400 transition hover:text-white"
-          >
-            ← Cambiar ruta
-          </Link>
-        </div>
-      </header>
-
-      <div className="flex items-center gap-3 pb-4">
-        <span
-          className="h-3 w-3 rounded-full"
-          style={{ backgroundColor: route.color }}
-        />
-        <div className="min-w-0">
-          <h1 className="truncate text-xl font-bold text-white">{route.name}</h1>
-          <p className="truncate text-sm text-gray-400">{route.tagline}</p>
-        </div>
-      </div>
-
-      <CommunityPulse presence={channel.presence} configured={channel.configured} />
+  const core = (
+    <>
+      <CommunityPulse
+        presence={channel.presence}
+        configured={channel.configured}
+      />
 
       {!channel.configured && (
         <div className="mb-4 rounded-xl border border-warn/40 bg-warn/10 p-4 text-sm text-warn">
@@ -185,6 +169,42 @@ export function RouteClient({ route }: { route: DemoRoute }) {
           )}
         </div>
       </div>
+    </>
+  );
+
+  if (embedded) {
+    return <div className="flex flex-1 flex-col">{core}</div>;
+  }
+
+  return (
+    <main className="mx-auto flex min-h-dvh max-w-6xl flex-col px-4 sm:px-5">
+      <header className="flex items-center justify-between gap-3 py-5">
+        <Logo />
+        <div className="flex items-center gap-2">
+          <ShareButton
+            message={`Mira el camión de "${route.name}" en vivo con Rumbi 🚌 La comunidad te avisa dónde viene y qué tan lleno va:`}
+          />
+          <Link
+            href="/"
+            className="text-sm text-gray-400 transition hover:text-white"
+          >
+            ← Inicio
+          </Link>
+        </div>
+      </header>
+
+      <div className="flex items-center gap-3 pb-4">
+        <span
+          className="h-3 w-3 rounded-full"
+          style={{ backgroundColor: route.color }}
+        />
+        <div className="min-w-0">
+          <h1 className="truncate text-xl font-bold text-white">{route.name}</h1>
+          <p className="truncate text-sm text-gray-400">{route.tagline}</p>
+        </div>
+      </div>
+
+      {core}
     </main>
   );
 }

@@ -13,6 +13,21 @@ export interface DemoRoute extends Route {
 
 export const DEMO_ROUTES: DemoRoute[] = [
   {
+    id: "a1e0a1e0-0000-4000-8000-000000000001",
+    name: "Ruta Ale",
+    color: "#ff7ac6",
+    is_active: true,
+    tagline: "El camión de Alejandra al trabajo.",
+    path: [
+      [20.6736, -103.3835],
+      [20.6802, -103.3902],
+      [20.6868, -103.3969],
+      [20.6934, -103.4036],
+      [20.7001, -103.4103],
+      [20.7068, -103.417],
+    ],
+  },
+  {
     id: "11111111-1111-1111-1111-111111111111",
     name: "Ruta 1 · Centro – Minerva",
     color: "#00d8a0",

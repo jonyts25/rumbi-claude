@@ -97,6 +97,7 @@ create policy "public insert occupancy" on public.occupancy_reports
 -- Seed: 3 rutas demo (IDs fijos para casar con el front)
 -- ---------------------------------------------------------------------
 insert into public.routes (id, name, color, is_active) values
+  ('a1e0a1e0-0000-4000-8000-000000000001', 'Ruta Ale', '#ff7ac6', true),
   ('11111111-1111-1111-1111-111111111111', 'Ruta 1 · Centro – Minerva', '#00d8a0', true),
   ('22222222-2222-2222-2222-222222222222', 'Ruta 2 · Periférico Norte', '#ffb020', true),
   ('33333333-3333-3333-3333-333333333333', 'Ruta 3 · Tlaquepaque – Universidad', '#8b7bff', true)
